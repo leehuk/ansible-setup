@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+    echo "Usage: $0 <role> [host(default:self-fqdn)]"
+    exit 1
+fi
+
+role="$1"
+[[ -n "$2" ]] && host="$2" || host=`hostname -f`
+
+ansible-playbook /etc/ansible/playbooks/role-runner.yml -e "host=${host}" -e "role=${role}"
